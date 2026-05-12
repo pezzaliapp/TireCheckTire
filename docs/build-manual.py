@@ -305,7 +305,16 @@ CONTENT = [
      "⬇ Esporta backup JSON — scarica tutti i dati locali",
      "⬆ Importa backup JSON — ripristina da un backup precedente",
      "🗑 Reset app — cancella tutto e ricarica (con conferma)"),
-    ("h2", "9 · Info"),
+    ("h2", "9 · Termini e responsabilità"),
+    ("p",
+     "Testo completo del disclaimer legale (12 sezioni: natura del servizio, "
+     "diagnosi AI come valore indicativo, responsabilità sui dati inseriti, "
+     "costi di terze parti, servizi esterni, conservazione dati, privacy/GDPR, "
+     "marchi di terzi, sicurezza informatica, limitazione di responsabilità, "
+     "modifiche, legge applicabile). Sempre consultabile da qui. Il pulsante "
+     "'Riapri schermata accettazione' permette di rileggere il disclaimer "
+     "con la checkbox originale."),
+    ("h2", "10 · Info"),
     ("p", "Versione corrente e link al sito PezzaliApp."),
 
     ("h1", "10. Installare come PWA"),
@@ -332,7 +341,35 @@ CONTENT = [
      "non richiedono Internet (storico, generazione PDF, inserimento dati). "
      "Per l'AI, le officine vicine e i webhook serve Internet."),
 
-    ("h1", "11. Privacy"),
+    ("h1", "11. Disclaimer e responsabilità"),
+    ("p",
+     "All'apertura dell'app — e ogni volta che la versione del documento "
+     "cambia — compare una schermata bloccante che chiede di accettare i "
+     "termini d'uso. L'app non funziona finché la casella non è spuntata e "
+     "il pulsante 'Accetta e continua' premuto."),
+    ("p", "Il disclaimer copre in particolare:"),
+    ("bullets",
+     "Natura del servizio: PWA fornita \"AS IS\", senza garanzie",
+     "Diagnosi AI: valore INDICATIVO, da verificare sempre manualmente",
+     "Inserimento dati: responsabilità esclusiva dell'utente",
+     "Costi di terze parti (Gemini, OpenAI, ecc.): a carico dell'utente",
+     "Servizi esterni: disponibilità e continuità non garantite",
+     "Conservazione dati: backup a carico dell'utente",
+     "Privacy/GDPR: l'utente è Titolare del Trattamento",
+     "Marchi di terzi: usati a solo titolo descrittivo",
+     "Sicurezza informatica: responsabilità sul dispositivo dell'utente",
+     "Limitazione di responsabilità: come da legge italiana"),
+    ("p",
+     "Il testo integrale è sempre consultabile da Impostazioni → "
+     "'9 · Termini e responsabilità'. Una versione sintetica del disclaimer "
+     "viene stampata anche in fondo a ogni PDF (report di analisi e "
+     "preventivi) come tutela aggiuntiva."),
+    ("callout",
+     "L'app non sostituisce mai l'ispezione tecnica dell'operatore. La "
+     "diagnosi AI è un ausilio, non una perizia: prima di sostituire "
+     "un pneumatico o rilasciare un documento, verifica sempre i dati."),
+
+    ("h1", "12. Privacy"),
     ("bullets",
      "Nessun tracking, nessuna analytics di terze parti",
      "Foto e dati cliente restano sul tuo dispositivo (localStorage)",
@@ -340,7 +377,7 @@ CONTENT = [
      "Le chiamate AI vanno SOLO all'endpoint che hai configurato",
      "PezzaliApp non riceve alcun dato"),
 
-    ("h1", "12. Risoluzione problemi"),
+    ("h1", "13. Risoluzione problemi"),
     ("table",
      ["Sintomo", "Possibile causa", "Soluzione"],
      ["Pulsanti in basso non appaiono",
@@ -362,7 +399,7 @@ CONTENT = [
       "Mancanza firma e modo 'senza firma' non attivo",
       "Firma il documento o premi 'Procedi senza firma'"]),
 
-    ("h1", "13. Crediti"),
+    ("h1", "14. Crediti"),
     ("p",
      "TireCheckTire — The Tire Intelligence Suite è sviluppato da "
      "PezzaliApp. Versione 1.0, maggio 2026."),

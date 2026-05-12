@@ -7,6 +7,8 @@ import * as modal from '../ui/modal.js';
 import * as exportMod from '../modules/export.js';
 import { DEFAULT_SUPPLIERS } from '../data/default-suppliers.js';
 import { SERVICE_CATALOG_AUTO } from '../data/service-catalog.js';
+import { TERMS_VERSION, TERMS_DATE, TERMS_SECTIONS } from '../data/legal.js';
+import * as legalModal from '../ui/legal-modal.js';
 
 // Track which collapsible sections the user has expanded, so re-renders
 // (e.g. after saving) don't collapse them.
@@ -127,8 +129,29 @@ function render(focus) {
       </div>
     </details>
 
+    <details data-section="legal" ${isOpen('legal')}>
+      <summary class="section-title" style="cursor:pointer;padding:10px 0">9 · Termini e responsabilità</summary>
+      <div class="card">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px">
+          <h3 style="margin:0">Termini d'uso</h3>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-2)">v${TERMS_VERSION} · ${TERMS_DATE}</span>
+        </div>
+        <p style="font-size:12.5px;color:var(--text-2);margin:0 0 12px">
+          Stato accettazione: <b style="color:${state.settings.termsAccepted === TERMS_VERSION ? 'var(--ok)' : 'var(--warn)'}">${state.settings.termsAccepted === TERMS_VERSION ? '✓ Accettati' : '⚠ Non accettati'}</b>
+        </p>
+        <div id="legal-inline" style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;max-height:320px;overflow-y:auto;font-size:12.5px;line-height:1.5">
+          ${TERMS_SECTIONS.map(s => `
+            <section style="margin-bottom:12px">
+              <h4 style="font-size:12.5px;font-weight:800;color:var(--accent);margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em">${escapeHtml(s.title)}</h4>
+              <div style="color:var(--text)"><p>${escapeHtml(s.body).replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p></div>
+            </section>`).join('')}
+        </div>
+        <button class="btn btn-secondary btn-block" id="legal-reopen" style="margin-top:10px">📜 Riapri schermata accettazione termini</button>
+      </div>
+    </details>
+
     <details data-section="info" ${isOpen('info')}>
-      <summary class="section-title" style="cursor:pointer;padding:10px 0">9 · Info</summary>
+      <summary class="section-title" style="cursor:pointer;padding:10px 0">10 · Info</summary>
       <div class="card">
         <h3>TireCheckTire</h3>
         <p style="color:var(--text-2);margin:8px 0">Versione 1.0.0 · The Tire Intelligence Suite</p>
@@ -226,6 +249,9 @@ function bind() {
       setTimeout(() => location.reload(), 700);
     }
   });
+
+  const reopen = document.getElementById('legal-reopen');
+  if (reopen) reopen.addEventListener('click', () => legalModal.show());
 
   document.getElementById('s-save').addEventListener('click', () => {
     saveSettings({

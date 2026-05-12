@@ -1,5 +1,5 @@
 // TireCheckTire Service Worker
-const CACHE_VERSION = 'tct-v1.0.2';
+const CACHE_VERSION = 'tct-v1.0.3';
 const ASSETS = [
   './',
   './index.html',
@@ -27,6 +27,7 @@ const ASSETS = [
   './js/ui/modal.js',
   './js/ui/sheet.js',
   './js/ui/components.js',
+  './js/ui/legal-modal.js',
   './js/ai/provider.js',
   './js/ai/prompts.js',
   './js/ai/normalize.js',
@@ -49,6 +50,7 @@ const ASSETS = [
   './js/data/default-suppliers.js',
   './js/data/service-catalog.js',
   './js/data/vehicle-types.js',
+  './js/data/legal.js',
   './js/screens/dashboard.js',
   './js/screens/scan.js',
   './js/screens/analysis.js',

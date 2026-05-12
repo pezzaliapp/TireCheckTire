@@ -3,6 +3,7 @@ import { loadSettings, state } from './core/state.js';
 import * as router from './core/router.js';
 import * as topbar from './ui/topbar.js';
 import * as nav from './ui/nav.js';
+import * as legalModal from './ui/legal-modal.js';
 
 // screens
 import * as dashboard from './screens/dashboard.js';
@@ -89,6 +90,11 @@ function init() {
     console.error('router.init failed', e);
     showFatalError(e);
   }
+
+  // Legal terms gate — non-blocking for routing, but the modal sits on top of
+  // every screen until the user accepts the current TERMS_VERSION.
+  try { legalModal.showIfNeeded(); }
+  catch (e) { console.error('legal modal failed', e); }
 }
 
 function showUpdateBanner() {

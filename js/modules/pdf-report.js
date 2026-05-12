@@ -1,6 +1,7 @@
 // PDF report di analisi (auto + truck) — riadattato da TireCheck Pro
 import { loadScript } from '../core/utils.js';
 import { state } from '../core/state.js';
+import { PDF_DISCLAIMER } from '../data/legal.js';
 
 const JSPDF_CDN = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
 
@@ -181,10 +182,18 @@ export async function generate(r) {
     try { doc.addImage(r.firma, 'PNG', M, signY, 70, 18); } catch (e) {}
   }
 
+  // Disclaimer (above the brand footer)
+  doc.setTextColor(110, 110, 110);
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(6.5);
+  const discLines = doc.splitTextToSize(PDF_DISCLAIMER, W - M * 2);
+  doc.text(discLines, M, 273);
+
   // footer
   doc.setFillColor(13, 13, 13);
   doc.rect(0, 285, W, 12, 'F');
   doc.setTextColor(80, 80, 80);
+  doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
   doc.text('Generato da TireCheckTire · PezzaliApp', W / 2, 291, { align: 'center' });
 

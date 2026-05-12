@@ -37,6 +37,10 @@ const DEFAULT_SETTINGS = {
 
   // Onboarding done
   onboardingDone: false,
+
+  // Legal terms acceptance — stores the accepted TERMS_VERSION,
+  // empty string means user has never accepted.
+  termsAccepted: '',
 };
 
 export const state = {
