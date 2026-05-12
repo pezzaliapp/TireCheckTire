@@ -1,27 +1,19 @@
 import { go, current } from '../core/router.js';
 import { on } from '../core/events.js';
 
-const TABS = [
-  { key: 'dashboard', screen: 'dashboard', icon: '🏠', label: 'Home' },
-  { key: 'scan',      screen: 'scan',      icon: '📸', label: 'Scan' },
-  { key: 'quote',     screen: 'quote',     icon: '📋', label: 'Preventivo' },
-  { key: 'history',   screen: 'history',   icon: '🗂',  label: 'Storico' },
-  { key: 'settings',  screen: 'settings',  icon: '⚙️', label: 'Setup' },
-];
-
+// The 5 nav buttons are pre-rendered as anchors in index.html (so they're
+// visible/navigable even before the JS module finishes loading). mount()
+// upgrades the anchors to SPA links and tracks the active tab.
 export function mount() {
   const el = document.getElementById('bottom-nav');
   if (!el) return;
 
-  el.innerHTML = TABS.map(t => `
-    <button class="nav-tab" data-screen="${t.screen}" aria-label="${t.label}">
-      <span class="nav-ico">${t.icon}</span>
-      <span class="nav-label">${t.label}</span>
-    </button>
-  `).join('');
-
   el.querySelectorAll('.nav-tab').forEach(btn => {
-    btn.addEventListener('click', () => go(btn.dataset.screen));
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const screen = btn.dataset.screen;
+      if (screen) go(screen);
+    });
   });
 
   highlight(current());

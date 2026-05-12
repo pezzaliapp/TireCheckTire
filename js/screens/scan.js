@@ -43,8 +43,6 @@ function render() {
         ${slot('battistrada', '📷 Battistrada', draft.battistrada)}
         ${slot('fianco', '🔎 Fianco (DOT/misura)', draft.fianco)}
       </div>
-      <input type="file" accept="image/*" capture="environment" id="file-battistrada" style="display:none">
-      <input type="file" accept="image/*" capture="environment" id="file-fianco" style="display:none">
     </div>
 
     <div id="ocr-banner" class="banner info hidden">
@@ -84,10 +82,11 @@ function render() {
 
 function slot(id, label, img) {
   return `
-    <div class="photo-slot" data-slot="${id}">
+    <label class="photo-slot" data-slot="${id}">
+      <input class="ps-input" type="file" accept="image/*" capture="environment" id="file-${id}">
       ${img ? `<img src="${img}" alt=""><div class="ps-badge ok">${id === 'battistrada' ? 'Battistrada' : 'Fianco'} ✓</div>` :
-              `<div style="text-align:center"><div class="ps-ico">📷</div><div class="ps-lbl">${label}</div></div>`}
-    </div>`;
+              `<div style="text-align:center;position:relative;z-index:1"><div class="ps-ico">📷</div><div class="ps-lbl">${label}</div></div>`}
+    </label>`;
 }
 
 function labelInput(label, id, val, ph) {
@@ -193,12 +192,8 @@ function bind() {
     el.addEventListener('change', handler);
   });
 
-  root.querySelectorAll('.photo-slot').forEach(s => {
-    s.addEventListener('click', () => {
-      const id = s.dataset.slot;
-      document.getElementById('file-' + id)?.click();
-    });
-  });
+  // Clicking the photo-slot label natively opens the file/camera picker
+  // (the hidden <input> is wrapped by the label). No JS click() needed.
   ['battistrada', 'fianco'].forEach(slot => {
     const inp = document.getElementById('file-' + slot);
     if (!inp) return;

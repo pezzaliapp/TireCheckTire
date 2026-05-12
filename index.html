@@ -27,12 +27,21 @@
 
 <div id="app">
 
-  <!-- TOPBAR (always visible) -->
-  <header class="topbar" id="topbar" role="banner"></header>
+  <!-- TOPBAR (always visible — pre-rendered so it's there even before JS) -->
+  <header class="topbar" id="topbar" role="banner">
+    <a class="topbar-logo" href="#dashboard" aria-label="TireCheckTire"><span class="accent">Tire</span>CheckTire</a>
+    <div class="topbar-title" id="topbar-title">Dashboard</div>
+    <a class="topbar-action" href="#settings" id="topbar-profile" aria-label="Impostazioni">⚙</a>
+  </header>
 
   <!-- CONTENT -->
   <main class="screen-wrap" id="screen-wrap">
-    <section class="screen" id="screen-dashboard"></section>
+    <section class="screen active" id="screen-dashboard">
+      <div class="boot-placeholder" style="text-align:center;padding:40px 18px;color:var(--text-2)">
+        <div style="font-size:36px;margin-bottom:8px">🛞</div>
+        <p>Caricamento TireCheckTire…</p>
+      </div>
+    </section>
     <section class="screen" id="screen-scan"></section>
     <section class="screen" id="screen-analysis"></section>
     <section class="screen" id="screen-quote"></section>
@@ -42,8 +51,14 @@
     <section class="screen" id="screen-onboarding"></section>
   </main>
 
-  <!-- BOTTOM NAV (always visible) -->
-  <nav class="bottom-nav" id="bottom-nav" role="navigation" aria-label="Navigazione principale"></nav>
+  <!-- BOTTOM NAV (always visible — pre-rendered with native anchor fallback) -->
+  <nav class="bottom-nav" id="bottom-nav" role="navigation" aria-label="Navigazione principale">
+    <a class="nav-tab" data-screen="dashboard" href="#dashboard"><span class="nav-ico">🏠</span><span class="nav-label">Home</span></a>
+    <a class="nav-tab" data-screen="scan"      href="#scan"><span class="nav-ico">📸</span><span class="nav-label">Scan</span></a>
+    <a class="nav-tab" data-screen="quote"     href="#quote"><span class="nav-ico">📋</span><span class="nav-label">Preventivo</span></a>
+    <a class="nav-tab" data-screen="history"   href="#history"><span class="nav-ico">🗂</span><span class="nav-label">Storico</span></a>
+    <a class="nav-tab" data-screen="settings"  href="#settings"><span class="nav-ico">⚙️</span><span class="nav-label">Setup</span></a>
+  </nav>
 
 </div>
 

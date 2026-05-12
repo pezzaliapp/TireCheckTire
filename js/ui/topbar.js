@@ -12,20 +12,17 @@ const TITLES = {
   onboarding: 'Benvenuto',
 };
 
+// The topbar markup lives in index.html so it's visible before JS finishes
+// booting. mount() just wires up SPA navigation on top of the static anchors.
 export function mount() {
   const el = document.getElementById('topbar');
   if (!el) return;
 
-  el.innerHTML = `
-    <div class="topbar-logo" id="topbar-logo" aria-label="TireCheckTire">
-      <span class="accent">Tire</span>CheckTire
-    </div>
-    <div class="topbar-title" id="topbar-title">Dashboard</div>
-    <button class="topbar-action" id="topbar-profile" aria-label="Impostazioni">⚙</button>
-  `;
+  const logo = el.querySelector('#topbar-logo, .topbar-logo');
+  const profile = el.querySelector('#topbar-profile');
 
-  el.querySelector('#topbar-logo').addEventListener('click', () => go('dashboard'));
-  el.querySelector('#topbar-profile').addEventListener('click', () => go('settings'));
+  if (logo) logo.addEventListener('click', (e) => { e.preventDefault(); go('dashboard'); });
+  if (profile) profile.addEventListener('click', (e) => { e.preventDefault(); go('settings'); });
 
   on('screen:changed', ({ name }) => {
     const t = el.querySelector('#topbar-title');
