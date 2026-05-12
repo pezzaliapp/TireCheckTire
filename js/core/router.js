@@ -2,6 +2,7 @@ import { emit } from './events.js';
 import { state } from './state.js';
 
 const screens = new Map();
+let suppressHashChange = false;
 
 export function register(name, mount) {
   screens.set(name, mount);
@@ -13,7 +14,10 @@ export function go(name, params = {}) {
     return;
   }
   state.currentScreen = name;
-  window.location.hash = name + (params && Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '');
+  const newHash = name + (params && Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '');
+  // Hash assignment fires `hashchange`; suppress the duplicate render that would follow.
+  suppressHashChange = true;
+  window.location.hash = newHash;
   render(name, params);
 }
 
@@ -45,6 +49,7 @@ export function init(defaultScreen = 'dashboard') {
   render(name, params);
 
   window.addEventListener('hashchange', () => {
+    if (suppressHashChange) { suppressHashChange = false; return; }
     const { name, params } = parse();
     state.currentScreen = name;
     render(name, params);

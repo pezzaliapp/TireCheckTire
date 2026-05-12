@@ -1,6 +1,7 @@
 import * as nearby from '../modules/nearby.js';
 import { escapeHtml } from '../core/utils.js';
 import { toast } from '../ui/toast.js';
+import * as modal from '../ui/modal.js';
 
 let result = [];
 let category = 'all';
@@ -65,7 +66,7 @@ async function start() {
 }
 
 async function searchManual() {
-  const city = window.prompt('Inserisci città o CAP', '');
+  const city = await modal.prompt('Es. Milano, 20121 o nome via', '', 'Inserisci città o CAP');
   if (!city) return;
   setStatus('🔍 Cerco "' + city + '"…');
   try {

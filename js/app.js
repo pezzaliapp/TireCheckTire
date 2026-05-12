@@ -29,24 +29,27 @@ function init() {
   router.register('settings',   settings.mount);
   router.register('onboarding', onboarding.mount);
 
-  // service worker
+  // Service Worker + update detection. We only surface the update banner when an
+  // existing controller is replaced (i.e. a real update), not on first install.
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(e => console.warn('SW reg failed', e));
-  }
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => {
+        reg.addEventListener('updatefound', () => {
+          const sw = reg.installing;
+          if (!sw) return;
+          sw.addEventListener('statechange', () => {
+            if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateBanner();
+            }
+          });
+        });
+      })
+      .catch(e => console.warn('SW reg failed', e));
 
-  // PWA update banner
-  if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      const ev = document.createElement('div');
-      ev.className = 'banner info';
-      ev.style.position = 'fixed';
-      ev.style.left = '12px';
-      ev.style.right = '12px';
-      ev.style.bottom = 'calc(var(--nav-h) + var(--safe-bottom) + 12px)';
-      ev.style.zIndex = '300';
-      ev.innerHTML = `<span>♻</span><div>Nuova versione disponibile</div><button class="banner-cta">Aggiorna</button>`;
-      ev.querySelector('button').onclick = () => location.reload();
-      document.body.appendChild(ev);
+      // Only react if there was already a controller (true update).
+      if (hadController) showUpdateBanner();
     });
   }
 
@@ -56,6 +59,21 @@ function init() {
   } else {
     router.init('dashboard');
   }
+}
+
+function showUpdateBanner() {
+  if (document.getElementById('sw-update-banner')) return;
+  const ev = document.createElement('div');
+  ev.id = 'sw-update-banner';
+  ev.className = 'banner info';
+  ev.style.position = 'fixed';
+  ev.style.left = '12px';
+  ev.style.right = '12px';
+  ev.style.bottom = 'calc(var(--nav-h) + var(--safe-bottom) + 12px)';
+  ev.style.zIndex = '300';
+  ev.innerHTML = `<span>♻</span><div>Nuova versione disponibile</div><button class="banner-cta">Aggiorna</button>`;
+  ev.querySelector('button').onclick = () => location.reload();
+  document.body.appendChild(ev);
 }
 
 if (document.readyState === 'loading') {

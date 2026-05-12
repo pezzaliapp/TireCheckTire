@@ -153,25 +153,61 @@ function truckFields() {
   `;
 }
 
+// Map of input id → key in draft.data, so we can sync both directions.
+const FIELD_MAP = {
+  'f-misura': 'misura',
+  'f-dot': 'dot',
+  'f-marca': 'marca',
+  'f-note': 'note',
+  'f-targa': 'targa',
+  'f-cliente': 'cliente',
+  'f-veicolo': 'marca_veicolo',
+  'f-posizione': 'posizione',
+  'f-anno': 'anno',
+  'f-tipo-mezzo': 'tipo_mezzo',
+  'f-lato': 'lato',
+  'f-tipo-asse': 'tipo_asse',
+  'f-montaggio': 'montaggio',
+  'f-km': 'km_mezzo',
+  'f-pressione': 'pressione',
+};
+
 function bind() {
   const root = document.getElementById('screen-scan');
   root.querySelectorAll('.ms-btn').forEach(b => b.addEventListener('click', () => {
+    captureFields(); // preserve typed values across mode swap
     setMode(b.dataset.mode);
     render();
   }));
+
+  // Persist every keystroke so a re-render (photo upload, mode swap) never loses input.
+  Object.entries(FIELD_MAP).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const handler = (e) => {
+      let v = e.target.value;
+      if (id === 'f-targa') v = v.toUpperCase();
+      draft.data[key] = v;
+    };
+    el.addEventListener('input', handler);
+    el.addEventListener('change', handler);
+  });
+
   root.querySelectorAll('.photo-slot').forEach(s => {
     s.addEventListener('click', () => {
       const id = s.dataset.slot;
-      document.getElementById('file-' + id).click();
+      document.getElementById('file-' + id)?.click();
     });
   });
   ['battistrada', 'fianco'].forEach(slot => {
     const inp = document.getElementById('file-' + slot);
+    if (!inp) return;
     inp.addEventListener('change', async (e) => {
       const file = e.target.files[0];
       if (!file) return;
       const raw = await readFileAsDataURL(file);
       const compressed = await compressImage(raw, 1280, 0.85);
+      captureFields(); // snapshot anything typed before re-render
       if (slot === 'battistrada') draft.battistrada = compressed;
       else draft.fianco = compressed;
       render();
@@ -223,10 +259,16 @@ async function runOCR() {
     });
     const ocr = normalizeOCR(tryParseJSON(raw) || raw);
     draft.ocr = ocr;
-    // pre-fill se vuoti
-    if (ocr.misura && !document.getElementById('f-misura').value) document.getElementById('f-misura').value = ocr.misura;
-    if (ocr.dot && !document.getElementById('f-dot').value) document.getElementById('f-dot').value = ocr.dot;
-    if (ocr.marca && !document.getElementById('f-marca').value) document.getElementById('f-marca').value = ocr.marca;
+    // Pre-fill empty fields in both draft + DOM so a re-render won't lose them.
+    const fields = [['misura', 'f-misura'], ['dot', 'f-dot'], ['marca', 'f-marca']];
+    fields.forEach(([key, id]) => {
+      const v = ocr[key];
+      if (!v) return;
+      if (!draft.data[key]) draft.data[key] = v;
+      const el = document.getElementById(id);
+      if (el && !el.value) el.value = v;
+    });
+    if (ocr.anno_produzione && !draft.data.anno) draft.data.anno = ocr.anno_produzione;
     text.textContent = `✓ OCR completata · leggibilità ${ocr.leggibilita}`;
     setTimeout(() => banner.classList.add('hidden'), 4000);
   } catch (e) {

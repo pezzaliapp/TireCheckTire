@@ -110,10 +110,11 @@ function render() {
 
 async function genPDF() {
   if (!state.analysisResult) return;
-  if (!sigPad?.isEmpty() === false && !skipSignature && sigPad?.isEmpty()) {
+  const hasSignature = sigPad && !sigPad.isEmpty();
+  if (!hasSignature && !skipSignature) {
     return toast('Firma il documento o premi "Procedi senza firma"', 'warn');
   }
-  const firma = !sigPad?.isEmpty() ? sigPad.dataURL() : null;
+  const firma = hasSignature ? sigPad.dataURL() : null;
   try {
     const fn = await pdfReport.generate({ ...state.analysisResult, firma });
     toast('📄 PDF scaricato: ' + fn, 'success');

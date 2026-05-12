@@ -8,8 +8,22 @@ import * as exportMod from '../modules/export.js';
 import { DEFAULT_SUPPLIERS } from '../data/default-suppliers.js';
 import { SERVICE_CATALOG_AUTO } from '../data/service-catalog.js';
 
+// Track which collapsible sections the user has expanded, so re-renders
+// (e.g. after saving) don't collapse them.
+const openSections = new Set(['office']);
+
 export function mount(params = {}) {
+  if (params.section) openSections.add(params.section);
   render(params.section);
+}
+
+function snapshotOpenSections() {
+  const root = document.getElementById('screen-settings');
+  if (!root) return;
+  openSections.clear();
+  root.querySelectorAll('details[data-section]').forEach(d => {
+    if (d.open) openSections.add(d.dataset.section);
+  });
 }
 
 function render(focus) {
@@ -18,11 +32,13 @@ function render(focus) {
   const providers = providerSys.list();
   const currentProvider = providers.find(p => p.id === s.aiProvider) || providers[0];
   const suppliers = s.suppliers || DEFAULT_SUPPLIERS;
+  if (focus) openSections.add(focus);
+  const isOpen = (k) => openSections.has(k) ? 'open' : '';
 
   root.innerHTML = `
     <div class="screen-sub">Configurazione · v1.0.0</div>
 
-    <details ${focus === 'office' || !focus ? 'open' : ''}>
+    <details data-section="office" ${isOpen('office')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">1 · Profilo officina</summary>
       <div class="card">
         <label class="field"><div class="field-label">Nome</div><input class="input" id="s-officina" value="${escapeHtml(s.officina)}"></label>
@@ -35,7 +51,7 @@ function render(focus) {
       </div>
     </details>
 
-    <details ${focus === 'ai' ? 'open' : ''}>
+    <details data-section="ai" ${isOpen('ai')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">2 · Provider AI</summary>
       <div class="card">
         <label class="field"><div class="field-label">Provider</div>
@@ -52,7 +68,7 @@ function render(focus) {
       </div>
     </details>
 
-    <details>
+    <details data-section="eprel" ${isOpen('eprel')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">3 · EPREL Proxy</summary>
       <div class="card">
         <label class="field"><div class="field-label">URL Worker EPREL</div><input class="input" id="s-eprel" value="${escapeHtml(s.eprelProxy)}" placeholder="https://eprel-proxy.workers.dev/?id={id}"></label>
@@ -60,21 +76,21 @@ function render(focus) {
       </div>
     </details>
 
-    <details>
+    <details data-section="webhook" ${isOpen('webhook')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">4 · Webhook Make.com</summary>
       <div class="card">
         <label class="field"><div class="field-label">Webhook URL</div><input class="input" id="s-webhook" value="${escapeHtml(s.webhook)}" placeholder="https://hook.eu1.make.com/…"></label>
       </div>
     </details>
 
-    <details>
+    <details data-section="whatsapp" ${isOpen('whatsapp')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">5 · WhatsApp</summary>
       <div class="card">
         <label class="field"><div class="field-label">Numero default</div><input class="input" id="s-whatsapp" type="tel" value="${escapeHtml(s.whatsappNumber)}" placeholder="+39…"></label>
       </div>
     </details>
 
-    <details>
+    <details data-section="suppliers" ${isOpen('suppliers')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">6 · Fornitori B2B</summary>
       <div class="card">
         <div id="sup-list">${suppliers.map((sp, i) => `
@@ -90,7 +106,7 @@ function render(focus) {
       </div>
     </details>
 
-    <details>
+    <details data-section="mode" ${isOpen('mode')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">7 · Modalità default</summary>
       <div class="card">
         <div class="mode-switch">
@@ -100,7 +116,7 @@ function render(focus) {
       </div>
     </details>
 
-    <details>
+    <details data-section="advanced" ${isOpen('advanced')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">8 · Avanzate</summary>
       <div class="card">
         <div class="btn-stack">
@@ -111,7 +127,7 @@ function render(focus) {
       </div>
     </details>
 
-    <details>
+    <details data-section="info" ${isOpen('info')}>
       <summary class="section-title" style="cursor:pointer;padding:10px 0">9 · Info</summary>
       <div class="card">
         <h3>TireCheckTire</h3>
@@ -129,6 +145,7 @@ function render(focus) {
 function bind() {
   document.getElementById('s-provider').addEventListener('change', (e) => {
     const p = providerSys.list().find(x => x.id === e.target.value);
+    snapshotOpenSections();
     saveSettings({ aiProvider: e.target.value, aiModel: p?.defaultModel || '' });
     render('ai');
   });
@@ -149,12 +166,14 @@ function bind() {
   });
 
   document.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => {
+    snapshotOpenSections();
     saveSettings({ modeDefault: b.dataset.m });
     setMode(b.dataset.m);
     render();
   }));
 
   document.querySelectorAll('[data-sup-del]').forEach(b => b.addEventListener('click', () => {
+    snapshotOpenSections();
     const list = (state.settings.suppliers || DEFAULT_SUPPLIERS).slice();
     list.splice(+b.dataset.supDel, 1);
     saveSettings({ suppliers: list });
@@ -166,6 +185,7 @@ function bind() {
     if (!name) return;
     const url = await modal.prompt('URL template con {w} {h} {r}', 'https://example.com/?s={w}/{h}+R{r}');
     if (!url) return;
+    snapshotOpenSections();
     const list = (state.settings.suppliers || DEFAULT_SUPPLIERS).slice();
     list.push({ name, urlTpl: url });
     saveSettings({ suppliers: list });
@@ -173,6 +193,7 @@ function bind() {
   });
 
   document.getElementById('sup-reset').addEventListener('click', () => {
+    snapshotOpenSections();
     saveSettings({ suppliers: null });
     render();
   });
