@@ -87,4 +87,4 @@ Ogni funzione è raggiungibile **in 1 tap**. Niente comand bar nascoste, niente 
 
 ## 📜 Licenza
 
-MIT — vedi [LICENSE.txt](./LICENSE.txt).
+MIT — vedi [LICENSE](./LICENSE).

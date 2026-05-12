@@ -130,14 +130,14 @@ function render(focus) {
     </details>
 
     <details data-section="legal" ${isOpen('legal')}>
-      <summary class="section-title" style="cursor:pointer;padding:10px 0">9 · Termini e responsabilità</summary>
+      <summary class="section-title" style="cursor:pointer;padding:10px 0">9 · Disclaimer e note legali</summary>
       <div class="card">
         <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px">
-          <h3 style="margin:0">Termini d'uso</h3>
+          <h3 style="margin:0">Disclaimer e note legali</h3>
           <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-2)">v${TERMS_VERSION} · ${TERMS_DATE}</span>
         </div>
         <p style="font-size:12.5px;color:var(--text-2);margin:0 0 12px">
-          Stato accettazione: <b style="color:${state.settings.termsAccepted === TERMS_VERSION ? 'var(--ok)' : 'var(--warn)'}">${state.settings.termsAccepted === TERMS_VERSION ? '✓ Accettati' : '⚠ Non accettati'}</b>
+          Stato presa visione: <b style="color:${state.settings.termsAccepted === TERMS_VERSION ? 'var(--ok)' : 'var(--warn)'}">${state.settings.termsAccepted === TERMS_VERSION ? '✓ Confermato' : '⚠ Non confermato'}</b>
         </p>
         <div id="legal-inline" style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;max-height:320px;overflow-y:auto;font-size:12.5px;line-height:1.5">
           ${TERMS_SECTIONS.map(s => `
@@ -146,7 +146,7 @@ function render(focus) {
               <div style="color:var(--text)"><p>${escapeHtml(s.body).replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p></div>
             </section>`).join('')}
         </div>
-        <button class="btn btn-secondary btn-block" id="legal-reopen" style="margin-top:10px">📜 Riapri schermata accettazione termini</button>
+        <button class="btn btn-secondary btn-block" id="legal-reopen" style="margin-top:10px">📜 Riapri schermata di presa visione</button>
       </div>
     </details>
 

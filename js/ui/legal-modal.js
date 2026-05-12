@@ -36,7 +36,7 @@ export function show() {
     ov.innerHTML = `
       <div class="modal" style="max-width:640px;width:100%;max-height:92vh;display:flex;flex-direction:column;padding:18px">
         <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px">
-          <h3 style="margin:0">Termini d'uso e responsabilità</h3>
+          <h3 style="margin:0">Disclaimer e note legali</h3>
           <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-2)">v${TERMS_VERSION} · ${TERMS_DATE}</span>
         </div>
         <p style="font-size:12.5px;line-height:1.45;color:var(--text-2);margin:0 0 12px">
@@ -48,7 +48,7 @@ export function show() {
         </div>
         <label style="display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.45;cursor:pointer;margin-bottom:12px;user-select:none">
           <input type="checkbox" id="legal-check" style="margin-top:3px;flex-shrink:0;width:18px;height:18px;accent-color:var(--accent)">
-          <span>Dichiaro di aver letto e di accettare integralmente i termini e la limitazione di responsabilità sopra esposti.</span>
+          <span>Dichiaro di aver preso visione del disclaimer e delle note legali sopra esposti.</span>
         </label>
         <button class="btn btn-primary btn-block" id="legal-accept" disabled>Accetta e continua</button>
       </div>

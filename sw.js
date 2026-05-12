@@ -1,5 +1,5 @@
 // TireCheckTire Service Worker
-const CACHE_VERSION = 'tct-v1.0.3';
+const CACHE_VERSION = 'tct-v1.0.4';
 const ASSETS = [
   './',
   './index.html',
