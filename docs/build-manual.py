@@ -305,15 +305,16 @@ CONTENT = [
      "⬇ Esporta backup JSON — scarica tutti i dati locali",
      "⬆ Importa backup JSON — ripristina da un backup precedente",
      "🗑 Reset app — cancella tutto e ricarica (con conferma)"),
-    ("h2", "9 · Termini e responsabilità"),
+    ("h2", "9 · Disclaimer e note legali"),
     ("p",
-     "Testo completo del disclaimer legale (12 sezioni: natura del servizio, "
-     "diagnosi AI come valore indicativo, responsabilità sui dati inseriti, "
-     "costi di terze parti, servizi esterni, conservazione dati, privacy/GDPR, "
-     "marchi di terzi, sicurezza informatica, limitazione di responsabilità, "
-     "modifiche, legge applicabile). Sempre consultabile da qui. Il pulsante "
-     "'Riapri schermata accettazione' permette di rileggere il disclaimer "
-     "con la checkbox originale."),
+     "Testo completo del disclaimer open source (13 sezioni: natura del progetto e "
+     "rilascio MIT, valore indicativo della diagnosi AI, esclusione dall'AI Act "
+     "ad alto rischio, responsabilità sui dati inseriti, costi di terze parti, "
+     "servizi esterni, conservazione dati, privacy/GDPR/localStorage, marchi "
+     "di terzi, sicurezza informatica, limitazione di responsabilità, evoluzione "
+     "del progetto, legge italiana e foro). Sempre consultabile da qui. Il "
+     "pulsante 'Riapri schermata di presa visione' permette di rileggere il "
+     "disclaimer con la checkbox originale."),
     ("h2", "10 · Info"),
     ("p", "Versione corrente e link al sito PezzaliApp."),
 
@@ -341,27 +342,41 @@ CONTENT = [
      "non richiedono Internet (storico, generazione PDF, inserimento dati). "
      "Per l'AI, le officine vicine e i webhook serve Internet."),
 
-    ("h1", "11. Disclaimer e responsabilità"),
+    ("h1", "11. Disclaimer e note legali"),
+    ("p",
+     "TireCheckTire è un progetto open source rilasciato gratuitamente a "
+     "titolo personale da Alessandro Pezzali, persona fisica, al di fuori "
+     "di qualsiasi attività professionale, commerciale o d'impresa. Il "
+     "codice è su github.com/pezzaliapp/TireCheckTire sotto licenza MIT. "
+     "Non sussiste alcun rapporto contrattuale tra l'autore e gli utenti "
+     "dell'applicazione."),
     ("p",
      "All'apertura dell'app — e ogni volta che la versione del documento "
-     "cambia — compare una schermata bloccante che chiede di accettare i "
-     "termini d'uso. L'app non funziona finché la casella non è spuntata e "
-     "il pulsante 'Accetta e continua' premuto."),
+     "cambia — compare una schermata bloccante che chiede di prendere "
+     "visione del disclaimer. L'app non funziona finché la casella non è "
+     "spuntata e il pulsante 'Accetta e continua' premuto."),
     ("p", "Il disclaimer copre in particolare:"),
     ("bullets",
-     "Natura del servizio: PWA fornita \"AS IS\", senza garanzie",
+     "Natura del progetto: rilascio personale gratuito sotto licenza MIT, "
+     "fornito \"AS IS\", senza garanzie",
      "Diagnosi AI: valore INDICATIVO, da verificare sempre manualmente",
+     "AI Act (Reg. UE 2024/1689): l'app NON è un sistema AI ad alto "
+     "rischio e non prende decisioni autonome di sicurezza",
      "Inserimento dati: responsabilità esclusiva dell'utente",
      "Costi di terze parti (Gemini, OpenAI, ecc.): a carico dell'utente",
      "Servizi esterni: disponibilità e continuità non garantite",
-     "Conservazione dati: backup a carico dell'utente",
-     "Privacy/GDPR: l'utente è Titolare del Trattamento",
-     "Marchi di terzi: usati a solo titolo descrittivo",
+     "Conservazione dati: backup a carico dell'utente (solo localStorage, "
+     "nessun server proprietario)",
+     "Privacy/GDPR: nessun cookie di tracciamento; l'utente che tratta dati "
+     "di terzi è Titolare del Trattamento",
+     "Marchi di terzi: uso descrittivo ex art. 21 CPI (D.Lgs. 30/2005)",
      "Sicurezza informatica: responsabilità sul dispositivo dell'utente",
-     "Limitazione di responsabilità: come da legge italiana"),
+     "Limitazione di responsabilità: come da legge italiana, fatta salva "
+     "responsabilità per dolo o colpa grave ex art. 1229 c.c.",
+     "Foro: luogo di residenza dell'autore, fatto salvo foro del consumatore"),
     ("p",
      "Il testo integrale è sempre consultabile da Impostazioni → "
-     "'9 · Termini e responsabilità'. Una versione sintetica del disclaimer "
+     "'9 · Disclaimer e note legali'. Una versione sintetica del disclaimer "
      "viene stampata anche in fondo a ogni PDF (report di analisi e "
      "preventivi) come tutela aggiuntiva."),
     ("callout",
