@@ -1,0 +1,113 @@
+/* Signature — gesture that closes the deal */
+
+.sig {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(5,5,5,0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-base) var(--ease-out);
+}
+.sig.is-open { opacity: 1; pointer-events: auto; }
+
+.sig-head {
+  padding: var(--s-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--s-4);
+}
+.sig-head h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tx-xl);
+  letter-spacing: var(--tr-tight);
+  line-height: 1.1;
+}
+.sig-head p {
+  font-size: var(--tx-sm);
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+.sig-head .sig-x {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+}
+
+.sig-pad-wrap {
+  margin: 0 var(--s-5);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-6);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+}
+.sig-pad-wrap canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.sig-pad-wrap .sig-baseline {
+  position: absolute;
+  left: var(--s-5); right: var(--s-5);
+  bottom: 22%;
+  height: 1px;
+  background: var(--border-2);
+}
+.sig-pad-wrap .sig-x-mark {
+  position: absolute;
+  left: var(--s-5);
+  bottom: calc(22% + 6px);
+  font-family: var(--font-mono);
+  font-size: var(--tx-sm);
+  color: var(--ink-3);
+  letter-spacing: var(--tr-mono);
+}
+
+.sig-foot {
+  padding: var(--s-4) var(--s-5) calc(var(--s-5) + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--s-3);
+  align-items: center;
+}
+.sig-foot .clear {
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-5);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+}
+.sig-foot .meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sig-foot .commit {
+  padding: var(--s-3) var(--s-5);
+  background: var(--accent);
+  color: #0a0a0a;
+  border-radius: var(--r-5);
+  font-weight: 800;
+  font-size: var(--tx-md);
+  letter-spacing: var(--tr-snug);
+}
+.sig-foot .commit[disabled] { opacity: 0.4; pointer-events: none; }

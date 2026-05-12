@@ -1,0 +1,162 @@
+/* History — legal vault */
+
+.vault {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.vault-head {
+  padding: var(--s-5) var(--s-5) var(--s-3);
+  display: flex; flex-direction: column; gap: var(--s-2);
+}
+.vault-head .kicker {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.vault-head h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tx-2xl);
+  letter-spacing: var(--tr-tight);
+  line-height: 1;
+}
+.vault-head p {
+  font-size: var(--tx-sm);
+  color: var(--ink-2);
+  max-width: 36ch;
+}
+.vault-search {
+  margin: var(--s-4) var(--s-5) var(--s-3);
+  display: flex; align-items: center; gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-5);
+}
+.vault-search input {
+  flex: 1;
+  font-size: var(--tx-md);
+}
+.vault-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 var(--s-5) calc(var(--s-7) + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; gap: var(--s-2);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--s-4);
+  align-items: center;
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-5);
+  text-align: left;
+}
+.entry .plate {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--s-1) var(--s-2);
+  background: #0a0a0a;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-3);
+  font-family: var(--font-mono);
+  font-size: var(--tx-sm);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.entry .info { display: flex; flex-direction: column; gap: 2px; }
+.entry .info .who { font-size: var(--tx-md); color: var(--ink); }
+.entry .info small {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-3);
+}
+.entry .right { display: flex; flex-direction: column; align-items: end; gap: 2px; }
+.entry .right .amt {
+  font-family: var(--font-mono);
+  font-size: var(--tx-md);
+  color: var(--ink);
+}
+.entry .right .status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.entry .right .status.ok { color: var(--ok); }
+.entry .right .status.warn { color: var(--warn); }
+.entry .right .status.danger { color: var(--danger); }
+
+.empty-vault {
+  margin-top: var(--s-7);
+  text-align: center;
+  display: flex; flex-direction: column; gap: var(--s-2); align-items: center;
+}
+.empty-vault svg { width: 56px; height: 56px; opacity: 0.4; }
+.empty-vault h3 {
+  font-family: var(--font-display);
+  font-size: var(--tx-lg);
+  font-weight: 700;
+  color: var(--ink);
+}
+.empty-vault p {
+  font-size: var(--tx-sm);
+  color: var(--ink-3);
+  max-width: 32ch;
+}
+
+/* ── Single-entry detail panel ── */
+.detail-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+.detail-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+.detail-meta b { color: var(--ink); font-weight: 500; }
+.shots-row {
+  display: flex;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-5);
+  overflow-x: auto;
+}
+.shots-row img {
+  width: 96px; height: 96px;
+  border-radius: var(--r-4);
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.hash-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-2);
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="TireCheckTire">
+  <rect width="512" height="512" rx="112" fill="#0a0a0a"/>
+  <g transform="translate(256 256)">
+    <!-- Outer tire ring -->
+    <circle r="172" fill="none" stroke="#e8ff47" stroke-width="22"/>
+    <!-- Inner hub -->
+    <circle r="64" fill="none" stroke="#e8ff47" stroke-width="16"/>
+    <!-- Tread blocks -->
+    <g stroke="#e8ff47" stroke-width="14" stroke-linecap="round">
+      <line x1="0" y1="-184" x2="0" y2="-152"/>
+      <line x1="130" y1="-130" x2="108" y2="-108"/>
+      <line x1="184" y1="0" x2="152" y2="0"/>
+      <line x1="130" y1="130" x2="108" y2="108"/>
+      <line x1="0" y1="184" x2="0" y2="152"/>
+      <line x1="-130" y1="130" x2="-108" y2="108"/>
+      <line x1="-184" y1="0" x2="-152" y2="0"/>
+      <line x1="-130" y1="-130" x2="-108" y2="-108"/>
+    </g>
+    <!-- Checkmark inside hub -->
+    <path d="M-32 4 l24 24 l44 -56" fill="none" stroke="#e8ff47" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

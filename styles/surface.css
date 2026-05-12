@@ -1,0 +1,274 @@
+/* Surface — the single morphing stage */
+
+.stage {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Chrome — minimal, no titlebar */
+.chrome {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-5);
+  background:
+    linear-gradient(to bottom, var(--bg) 30%, rgba(10,10,10,0.6) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tx-md);
+  letter-spacing: var(--tr-tight);
+}
+.brand .dot {
+  width: 8px; height: 8px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.brand .name { color: var(--ink); }
+.brand .profile {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-left: var(--s-2);
+  padding: 2px var(--s-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+}
+
+.chrome-side {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.glyph-btn {
+  width: 36px; height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-full);
+  color: var(--ink-2);
+  transition: background var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
+}
+.glyph-btn:hover { color: var(--ink); background: var(--surface-1); }
+.glyph-btn:active { transform: scale(0.92); }
+.glyph-btn.is-on { color: #0a0a0a; background: var(--accent); }
+
+/* ── Scene container ── */
+.scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 24px, 0) scale(0.98);
+  transition:
+    opacity var(--d-base) var(--ease-out),
+    transform var(--d-slow) var(--spring),
+    visibility 0s linear var(--d-base);
+  will-change: opacity, transform;
+}
+.layer.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity var(--d-base) var(--ease-out),
+    transform var(--d-slow) var(--spring),
+    visibility 0s linear;
+}
+
+/* ── Idle scene — the bay ── */
+.bay {
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  gap: var(--s-5);
+}
+
+.bay-headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--s-4);
+}
+.bay-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.bay-meta .pulse {
+  width: 6px; height: 6px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-ring);
+  animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(232,255,71,0.5); }
+  100% { box-shadow: 0 0 0 14px rgba(232,255,71,0); }
+}
+
+.bay-prompt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--tx-3xl);
+  line-height: 1.04;
+  letter-spacing: var(--tr-tight);
+  color: var(--ink);
+  max-width: 16ch;
+}
+.bay-prompt em {
+  font-style: normal;
+  background: linear-gradient(110deg, var(--accent) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bay-hint {
+  font-size: var(--tx-md);
+  line-height: 1.4;
+  color: var(--ink-2);
+  max-width: 28ch;
+}
+
+/* ── Bay actions — radial trigger ── */
+.bay-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+}
+
+.shoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--s-5) var(--s-5);
+  background: var(--accent);
+  color: #0a0a0a;
+  border-radius: var(--r-6);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tx-xl);
+  letter-spacing: var(--tr-tight);
+  box-shadow: var(--el-accent);
+  transition: transform var(--d-base) var(--spring), box-shadow var(--d-base) var(--ease-out);
+}
+.shoot:active { transform: scale(0.985); }
+.shoot .shoot-meta {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.shoot .shoot-arrow {
+  width: 44px; height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  color: var(--accent);
+  border-radius: var(--r-full);
+}
+
+.shoot-row {
+  display: flex;
+  gap: var(--s-2);
+}
+.shoot-row .pill {
+  flex: 1;
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-5);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  transition: border-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out);
+}
+.shoot-row .pill:active { border-color: var(--accent); color: var(--ink); }
+
+/* ── Active job card (above the shoot button) ── */
+.bay-active {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-6);
+  padding: var(--s-4) var(--s-5);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  text-align: left;
+}
+.bay-active .plate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: var(--s-1) var(--s-2);
+  background: #0a0a0a;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-3);
+  font-family: var(--font-mono);
+  font-size: var(--tx-sm);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+.bay-active .who {
+  font-size: var(--tx-md);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bay-active .who small {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  color: var(--ink-3);
+  letter-spacing: var(--tr-mono);
+}
+.bay-active .resume {
+  font-family: var(--font-mono);
+  font-size: var(--tx-xs);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-mono);
+}

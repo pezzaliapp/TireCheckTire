@@ -1,0 +1,84 @@
+/* Base — reset, primitives */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-feature-settings: "ss01", "kern";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(1400px 700px at 50% -10%, rgba(232,255,71,0.05), transparent 60%),
+    radial-gradient(900px 500px at 100% 100%, rgba(127,179,255,0.04), transparent 60%),
+    var(--bg);
+  min-height: 100dvh;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+button:focus-visible, [tabindex]:focus-visible, input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-ring);
+  border-radius: var(--r-3);
+}
+
+input, textarea, select {
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+::selection { background: var(--accent); color: #0a0a0a; }
+
+img { max-width: 100%; display: block; }
+svg { display: block; }
+
+/* Hide scrollbars on touch surfaces */
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+}
+.scroll::-webkit-scrollbar { width: 6px; }
+.scroll::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: var(--r-full); }
+.scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Mono utility */
+.mono { font-family: var(--font-mono); letter-spacing: var(--tr-mono); }
+.tabular { font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-2); }
+.faint { color: var(--ink-3); }
+
+/* Safe-area aware base */
+.app-root {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
