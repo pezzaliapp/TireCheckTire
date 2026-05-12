@@ -110,9 +110,32 @@
 }
 .empty-vault p {
   font-size: var(--tx-sm);
-  color: var(--ink-3);
-  max-width: 32ch;
+  color: var(--ink-2);
+  max-width: 36ch;
+  line-height: 1.45;
 }
+.empty-vault .empty-vault-hint {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  margin-top: var(--s-1);
+}
+.empty-vault-cta {
+  margin-top: var(--s-4);
+  padding: var(--s-3) var(--s-5);
+  background: var(--surface-1);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-full);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  transition: border-color var(--d-fast) var(--ease-out);
+}
+.empty-vault-cta:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── Single-entry detail panel ── */
 .detail-head {

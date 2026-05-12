@@ -55,7 +55,7 @@ export function mountCommand() {
 
   on(window, "keydown", e => {
     if (e.key === "/" && !isTypingTarget(e.target)) { e.preventDefault(); open(); }
-    if (e.metaKey && e.key.toLowerCase() === "k") { e.preventDefault(); open(); }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); open(); }
   });
 }
 

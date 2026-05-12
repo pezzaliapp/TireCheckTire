@@ -42,9 +42,12 @@ function paint(items) {
       <div class="empty-vault">
         ${raw(icon("vault", 64))}
         <h3>Vault vuoto</h3>
-        <p>Quando firmerai il primo preventivo, comparirà qui — con tutte le prove allegate.</p>
+        <p>Qui finisce ogni preventivo che firmi — foto, hash, geo, perizia AI. Pronti per il giudice.</p>
+        <p class="empty-vault-hint">Per ora niente da mostrare: chiudi il primo lavoro e tornerà qui in automatico.</p>
+        <button class="empty-vault-cta" id="empty-vault-back">↩ Torna al banco</button>
       </div>
     `);
+    on($("#empty-vault-back"), "click", () => goto("bay"));
     return;
   }
   setHTML(list, items.map(entry).join(""));

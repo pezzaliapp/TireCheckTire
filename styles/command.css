@@ -301,3 +301,84 @@
   text-align: center;
   text-transform: uppercase;
 }
+
+/* Onboarding step 2 — AI key */
+.intro-ai {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  overflow-y: auto;
+  padding-bottom: var(--s-6);
+}
+.intro-ai-link {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  background: rgba(232,255,71,0.06);
+  border: 1px solid var(--accent-ring);
+  border-radius: var(--r-5);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--tx-sm);
+  letter-spacing: var(--tr-mono);
+  text-decoration: none;
+  transition: background var(--d-fast) var(--ease-out);
+}
+.intro-ai-link:hover { background: rgba(232,255,71,0.12); }
+.intro-ai-link-label { word-break: break-all; }
+.intro-ai-link-arrow { font-size: var(--tx-md); }
+.intro-ai-howto {
+  font-size: var(--tx-sm);
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+.intro-ai-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+.intro-ai-field > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: var(--tr-mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.intro-ai-field input {
+  padding: var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-5);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: var(--tx-md);
+  letter-spacing: 0.04em;
+}
+.intro-ai-field input:focus { border-color: var(--accent); }
+.intro-ai-save {
+  margin-top: var(--s-3);
+  padding: var(--s-4);
+  background: var(--accent);
+  color: #0a0a0a;
+  border-radius: var(--r-6);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tx-lg);
+  letter-spacing: var(--tr-snug);
+  box-shadow: var(--el-accent);
+  transition: transform var(--d-fast) var(--spring);
+}
+.intro-ai-save:active { transform: scale(0.985); }
+.intro-ai-skip {
+  margin-top: var(--s-1);
+  padding: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.intro-ai-skip:hover { color: var(--ink-2); }

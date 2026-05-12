@@ -8,10 +8,14 @@ import { job, startJob } from "../core/job.js";
 import { settings } from "../core/state.js";
 import { PROFILES } from "../data/profiles.js";
 import { eur, relTime } from "../core/format.js";
+import { hasUsableConfig } from "../ai/providers.js";
 
 export function mountBay() {
   const root = $("[data-scene=bay]");
   job.subscribe(() => { if (document.body.dataset.scene === "bay") render(); });
+  document.addEventListener("tct:settings-saved", () => {
+    if (document.body.dataset.scene === "bay") render();
+  });
   render();
 
   on(root, "click", e => {
@@ -21,7 +25,13 @@ export function mountBay() {
     if (act === "manual") goto("quote");
     if (act === "resume") goto("quote");
     if (act === "vault") openVault();
+    if (act === "configure-ai") openProviderSettings();
   });
+}
+
+async function openProviderSettings() {
+  const m = await import("./settings.js");
+  m.openSettingsSheet({ focus: "provider" });
 }
 
 async function shoot(s) {
@@ -47,6 +57,8 @@ function render() {
     ? renderActive(j)
     : "";
 
+  const aiOk = hasUsableConfig();
+
   setHTML(root, html`
     <section class="bay">
       <div class="bay-headline">
@@ -62,6 +74,15 @@ function render() {
           </span>
           <span class="shoot-arrow">${raw(icon("camera"))}</span>
         </button>
+        ${raw(aiOk ? "" : `
+          <div class="ai-banner" role="alert">
+            <div class="ai-banner-text">
+              <span class="ai-banner-title">⚠ Configura il provider AI</span>
+              <span class="ai-banner-sub">senza chiave non c'è diagnosi automatica</span>
+            </div>
+            <button class="ai-banner-cta" data-act="configure-ai">Configura ora</button>
+          </div>
+        `)}
         <div class="shoot-row">
           <button class="pill" data-act="manual">${raw(icon("receipt"))} <span style="margin-left:8px">apri preventivo</span></button>
           <button class="pill" data-act="vault">${raw(icon("vault"))} <span style="margin-left:8px">vault</span></button>

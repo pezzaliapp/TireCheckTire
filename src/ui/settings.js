@@ -6,7 +6,7 @@ import { settings } from "../core/state.js";
 import { PROVIDERS, PROVIDER_ORDER } from "../ai/providers.js";
 import { openSheet, closeSheet } from "./sheet.js";
 
-export function openSettingsSheet() {
+export function openSettingsSheet(opts = {}) {
   const op = settings.get("operator", { shopName: "", name: "", phone: "", piva: "", address: "" });
   const provider = settings.get("ai.provider", "gemini");
   const epreProxy = settings.get("eprel.proxy", "");
@@ -76,9 +76,21 @@ export function openSettingsSheet() {
     settings.set("webhook.makecom", val("st-webhook"));
     toast("Impostazioni salvate", "ok");
     closeSheet();
+    document.dispatchEvent(new CustomEvent("tct:settings-saved"));
   });
 
   on(document.getElementById("st-cancel"), "click", () => closeSheet());
+
+  if (opts.focus === "provider") {
+    requestAnimationFrame(() => {
+      const sel = document.getElementById("st-provider");
+      if (sel) {
+        sel.scrollIntoView({ behavior: "smooth", block: "center" });
+        const keyInput = document.getElementById(`st-key-${sel.value}`);
+        if (keyInput) setTimeout(() => keyInput.focus(), 220);
+      }
+    });
+  }
 }
 
 function renderProviderConfig(id) {
