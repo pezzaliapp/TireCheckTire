@@ -1,0 +1,36 @@
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #141414;
+  --surface: #1a1a1a;
+  --surface-2: #222222;
+  --border: #2a2a2a;
+  --border-strong: #3a3a3a;
+
+  --accent: #e8ff47;
+  --accent-dim: #c8df27;
+  --accent-glow: rgba(232, 255, 71, .12);
+
+  --text: #f0f0f0;
+  --text-2: #888;
+  --text-3: #555;
+
+  --ok: #2ed573;
+  --warn: #ffa502;
+  --danger: #ff4757;
+  --whatsapp: #25d366;
+
+  --font-display: 'Syne', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  --shadow-1: 0 4px 24px rgba(0, 0, 0, .6);
+  --shadow-2: 0 10px 32px rgba(0, 0, 0, .7);
+
+  --topbar-h: 56px;
+  --nav-h: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local env / secrets
+.env
+.env.local
+*.local
+
+# Build / cache (non usati ma per sicurezza)
+node_modules/
+dist/
+build/
+.cache/
+
+# Source extracted folder (gli zip rimangono come riferimento)
+_source/extracted/
+_source/extracted/__MACOSX/

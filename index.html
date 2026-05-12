@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="TireCheckTire — la suite di intelligenza per gommisti, autofficine e fleet manager. Diagnosi AI, preventivi e officine vicine.">
+<title>TireCheckTire — The Tire Intelligence Suite</title>
+
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./assets/icon-192.png">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/scanner.css">
+<link rel="stylesheet" href="./css/animations.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- TOPBAR (always visible) -->
+  <header class="topbar" id="topbar" role="banner"></header>
+
+  <!-- CONTENT -->
+  <main class="screen-wrap" id="screen-wrap">
+    <section class="screen" id="screen-dashboard"></section>
+    <section class="screen" id="screen-scan"></section>
+    <section class="screen" id="screen-analysis"></section>
+    <section class="screen" id="screen-quote"></section>
+    <section class="screen" id="screen-history"></section>
+    <section class="screen" id="screen-nearby"></section>
+    <section class="screen" id="screen-settings"></section>
+    <section class="screen" id="screen-onboarding"></section>
+  </main>
+
+  <!-- BOTTOM NAV (always visible) -->
+  <nav class="bottom-nav" id="bottom-nav" role="navigation" aria-label="Navigazione principale"></nav>
+
+</div>
+
+<noscript>
+  <div style="padding:24px;color:#fff;background:#000">TireCheckTire richiede JavaScript abilitato.</div>
+</noscript>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
